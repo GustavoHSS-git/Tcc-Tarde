@@ -4,8 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>8reviews</title>
+    <script>
+        (function () {
+            var saved = localStorage.getItem('tcc_tarde_theme');
+            var validThemes = ['original', 'light', 'gamecube', 'nes', 'snes', 'atari', 'xbox', 'gameboy', 'casaxeira'];
+            var theme = (validThemes.includes(saved))
+                ? saved
+                : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'original');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
     <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
 
@@ -30,18 +39,54 @@
                     <a href="#search" class="nav-link">Buscar</a>
                     <a href="#profile" class="nav-link" id="profileLink" style="display: none;">Perfil</a>
                 </nav>
-                <div class="auth-buttons" id="authButtons">
-                    <button class="btn btn-outline" onclick="showLogin()">Entrar</button>
-                    <button class="btn btn-primary" onclick="showRegister()">Cadastrar</button>
-                </div>
-                <div class="user-menu" id="userMenu" style="display: none;">
+                <div class="header-actions">
+                    <div class="theme-menu">
+                                <button class="theme-toggle" id="themeToggle" onclick="toggleThemeMenu()" aria-label="Alternar tema">
+                                    <img src="../../uploads/pallete.svg" alt="theme-toggle" id="theme-toggle">
+                                </button>
+
+                        <div class="theme-dropdown" id="themeDropdown">
+                            <button class="theme-option" data-theme="original" onclick="setTheme('original')">
+                                <span class="theme-dot"></span>
+                                <span>Original</span>
+                            </button>
+                            <button class="theme-option" data-theme="light" onclick="setTheme('light')">
+                                <span class="theme-dot"></span>
+                                <span>Claro</span>
+                            </button>
+                            <button class="theme-option" data-theme="gamecube" onclick="setTheme('gamecube')">
+                                <span class="theme-dot"></span>
+                                <span>GameCube</span>
+                            </button>
+                            <button class="theme-option" data-theme="nes" onclick="setTheme('nes')">
+                                <span class="theme-dot"></span>
+                                <span>NES</span>
+                            </button>
+                        
+                            <button class="theme-option" data-theme="xbox" onclick="setTheme('xbox')">
+                                <span class="theme-dot"></span>
+                                <span>Xbox</span>
+                            </button>
+
+                            <button class="theme-option" data-theme="casaxeira" onclick="setTheme('casaxeira')">
+                                <span class="theme-dot"></span>
+                                <span>CasaXeira</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="auth-buttons" id="authButtons">
+                        <button class="btn btn-outline" onclick="showLogin()">Entrar</button>
+                        <button class="btn btn-primary" onclick="showRegister()">Cadastrar</button>
+                    </div>
+                    <div class="user-menu" id="userMenu" style="display: none;">
                     <div class="user-avatar" onclick="toggleUserDropdown()">
-                        <img src="uploads/default-avatar.png" alt="Avatar" id="headerAvatar">
+                        <img src="../../uploads/icon-icons.png" alt="Avatar" id="headerAvatar">
                         <span id="headerUsername"></span>
                     </div>
                     <div class="user-dropdown" id="userDropdown">
                         <a href="#profile" onclick="navigateToProfile()">Meu Perfil</a>
                         <a href="#" onclick="logout()">Sair</a>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -58,7 +103,60 @@
                         <input type="text" id="heroSearch" placeholder=" Buscar jogos..." onkeyup="heroSearchSeries(event)">
                     </div>
                 </div>
+                
+                <section class="series-section">
+  <h2 class="line-title">Trending Games</h2>
+  <div class="series-grid carousel-grid" id="trendingGames">
+    <div class="series-card" data-id="dota-2" role="button" tabindex="0">
+    <img src="../../uploads/WhatsApp Image 2026-08-14 at 15.48.57.jpeg" alt="Dota 2" class="series-card-poster">
+      <div class="series-card-content">
+        <div class="series-card-title">Dota 2</div>
+        <div class="series-card-info">Multiplayer Online Battle Arena</div>
+      </div>
+    </div>
+    
+    <div class="series-card" data-id="pubg" role="button" tabindex="0">
+      <img src="https://www.yudiz.com/codepen/expandable-animated-card-slider/pubg.jpg" alt="PUBG" class="series-card-poster">
+      <div class="series-card-content">
+        <div class="series-card-title">PUBG</div>
+        <div class="series-card-info">Battle Royale</div>
+      </div>
+    </div>
+    
+    <div class="series-card" data-id="counter-strike-2" role="button" tabindex="0">
+    <img src="../../uploads/casa.jpeg" alt="Counter-Strike 2" class="series-card-poster">
+      <div class="series-card-content">
+        <div class="series-card-title">Casaxeira</div>        
+        <div class="series-card-info">Plataforma</div>
+      </div>
+    </div>
+    
+    <div class="series-card" data-id="Lego Batman 23+" role="button" tabindex="0">
+    <img src="../../uploads/Lego Batman 2.jfif" alt="Lego Batman 2" class="series-card-poster">
+      <div class="series-card-content">
+        <div class="series-card-title">Lego Batman 2</div>
+        <div class="series-card-info">Aventura</div>
+      </div>
+    </div>
+    
+    <div class="series-card" data-id="valorant" role="button" tabindex="0">
+    <img src="../../uploads/1393414.jpg" alt="Valorant" class="series-card-poster">
+      <div class="series-card-content">
+        <div class="series-card-title">Valorant</div>
+        <div class="series-card-info">Competitive Shooter</div>
+      </div>
+    </div>
+    
 
+  <div class="series-card" data-id="fortnite" role="button" tabindex="0">
+    <img src="../../uploads/STREET FIGHTER 6.jfif" alt="Fortnite" class="series-card-poster">
+      <div class="series-card-content">
+        <div class="series-card-title">Street Fighter 6</div>
+        <div class="series-card-info">Luta</div>
+      </div>
+    </div>
+  </div>
+</section>
                 <section class="series-section">
                     <h3><i class="fas fa-bolt"></i> Novidades</h3>
                     <div class="series-grid carousel-grid" id="newSeries">
@@ -68,21 +166,21 @@
 
                 <section class="series-section">
                     <h3>Jogos em alta</h3>
-                    <div class="series-grid" id="popularSeries">
+                    <div class="series-grid carousel-grid" id="popularSeries">
                         <div class="loading">Carregando Jogos...</div>
                     </div>
                 </section>
 
                 <section class="series-section">
                     <h3>Retro</h3>
-                    <div id="animeSeries" class="series-grid">
+                    <div id="animeSeries" class="series-grid carousel-grid">
                         <div class="loading">Carregando Retros...</div>
                     </div>
                 </section>
 
                 <section class="series-section">
                     <h3>Top Avaliados</h3>
-                    <div class="series-grid" id="topRatedSeries">
+                    <div class="series-grid carousel-grid" id="topRatedSeries">
                         <div class="loading">Carregando jogos...</div>
                     </div>
                 </section>
@@ -95,6 +193,8 @@
                 </section>
             </div>
         </section>
+
+        <!-- Página de busca -->
 
         <section id="searchPage" class="page">
             <div class="container">
@@ -124,6 +224,7 @@
         </section>
     </main>
 
+    <!-- Modais de Login e Registro -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('loginModal')">&times;</span>
@@ -141,6 +242,9 @@
                 <button type="submit" class="btn btn-primary btn-block">Entrar</button>
                 <p class="modal-footer-text">
                     Não tem uma conta? <a href="#" onclick="switchToRegister()">Cadastre-se</a>
+                </p>
+                <p>
+                    <a href="#" class="modal-secondary-link" onclick="switchToForgotPassword(event)">Esqueceu a senha?</a>
                 </p>
             </form>
         </div>
@@ -167,15 +271,43 @@
                 <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
                 <p class="modal-footer-text">
                     Já tem uma conta? <a href="#" onclick="switchToLogin()">Entre aqui</a>
+                </p>    
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="forgotPasswordModal">
+        <div class="modal-content recovery-modal-content">
+            <button class="close" type="button" onclick="closeModal('forgotPasswordModal')" aria-label="Fechar">&times;</button>
+            <div class="recovery-heading">
+                <div>
+                    <h2>Recuperar senha</h2>
+                    <p>Informe o e-mail usado no cadastro para iniciar a recuperação.</p>
+                </div>
+            </div>
+            <form id="forgotPasswordForm" onsubmit="handleForgotPassword(event)">
+                <div class="form-group">
+                    <label for="forgotPasswordEmail">E-mail</label>
+                    <input id="forgotPasswordEmail" type="email" name="email" autocomplete="email" placeholder="voce@exemplo.com" required>
+                </div>
+                <div class="error-message" id="forgotPasswordError" role="alert"></div>
+                <div class="success-message" id="forgotPasswordSuccess" role="status"></div>
+                <button type="submit" class="btn btn-primary btn-block">Enviar instruções</button>
+                <p class="modal-footer-text">
+                    Lembrou da senha? <a href="#" onclick="switchToLoginFromForgot(event)">Voltar para entrar</a>
                 </p>
             </form>
         </div>
     </div>
 
+    <script src="../../js/carrossel.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/api.js"></script>
     <script src="../../js/auth.js"></script>
     <script src="../../js/app.js"></script>
-    <script src="../../js/series.js"></script>
-    <script src="../../js/profile.js"></script>
+    <script src="../../js/games.js"></script>
+    <script src="../../js/profile.js"></script>  
     <script src="../../js/notifications.js"></script>
+    <script src="../../js/carousel-grid.js"></script>
     </body>
 </html>

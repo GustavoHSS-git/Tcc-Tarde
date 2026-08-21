@@ -29,7 +29,7 @@ async function loadUserProfile(userId) {
         // --- LÓGICA CLOUDINARY CORRIGIDA ---
         const avatarUrl = (user.avatar && user.avatar.startsWith('http')) 
             ? user.avatar 
-            : `/uploads/${user.avatar || 'default-avatar.png'}`;
+            : `../../uploads/${user.avatar || 'icon-icons.png'}`;
         
         let avatarSection = '';
         if (isOwnProfile) {
@@ -59,7 +59,7 @@ async function loadUserProfile(userId) {
                     <img src="${avatarUrl}" 
                          alt="${user.username}" class="profile-avatar"
                          style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 3px solid var(--primary-color);"
-                         onerror="this.src='/uploads/default-avatar.png'">
+                         onerror="this.src='../../uploads/icon-icons.png'">
                     ${avatarSection}
                 </div>
                 <div class="profile-info" style="flex: 1; min-width: 300px;">
@@ -129,7 +129,7 @@ async function loadUserRatingsList(userId) {
                     card.innerHTML = `
                         <div style="position: relative;">
                             <img src="${posterUrl}" alt="${series.name}" class="series-card-poster"
-                                 onerror="this.src='/uploads/default-poster.png'">
+                                 onerror="this.src='../../uploads/default-poster.png'">
                             <div style="position: absolute; top: 0.5rem; right: 0.5rem; 
                                  background: ${statusColors[rating.status] || '#666'}; 
                                  color: white; padding: 0.2rem 0.5rem; border-radius: 4px; 
@@ -187,16 +187,11 @@ async function saveBio() {
     btn.innerText = 'Salvando...';
 
     try {
-        const response = await fetch('/api/user/update', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ bio })
-        });
-        const data = await response.json();
+        const data = await API.updateUser({ bio });
         if (data.success) {
             notifySuccess('Bio atualizada com sucesso!', '✓ Perfil Atualizado');
         } else {
-            notifyError('Erro ao salvar bio', '✗ Erro ao Salvar');
+            notifyError(data.error || 'Erro ao salvar bio', '✗ Erro ao Salvar');
         }
     } catch (error) {
         notifyError('Erro ao conectar com o servidor', '✗ Erro de Conexão');
