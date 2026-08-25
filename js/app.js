@@ -130,13 +130,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Carregar rota inicial
     handleRoute();
+    bindStaticSeriesCards();
     
     // Scroll suave
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             if (href && href.length > 1) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: 'auto' });
             }
         });
     });
@@ -178,22 +179,14 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Localize onde você faz o POST para /api/rating
 async function handleRatingSubmit(data) {
-    const response = await fetch('/api/rating', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    });
+    const result = await API.addRating(data);
 
-    if (response.ok) {
-        // 1. Avisa que deu certo
-        showToast("Avaliado com sucesso!", "success");
-        
-        // 2. Fecha o modal
+    if (result.success) {
+        showToast('Avaliado com sucesso!', 'success');
         closeModal();
-
-        // 3. RECARREGA A HOME (Isso vai disparar o filtro que criamos acima)
-        loadHomePage(); 
+        loadHomePage();
+    } else {
+        showToast(result.error || 'Erro ao salvar avaliação', 'error');
     }
 }

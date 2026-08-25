@@ -27,13 +27,13 @@ function updateUIForLoggedInUser() {
         // Verifica se é link do Cloudinary (http) ou arquivo local
         const avatarSrc = currentUser.avatar.startsWith('http') 
             ? currentUser.avatar 
-            : `/uploads/${currentUser.avatar}`;
+            : `../../uploads/icons/${currentUser.avatar}`;
             
         avatarElement.src = avatarSrc;
 
         // Se a imagem não carregar por algum motivo, põe a padrão
         avatarElement.onerror = function() { 
-            this.src = '/uploads/default-avatar.png';
+              this.src = '../../uploads/icons/icon-icons.png';
             this.onerror = null;
         };
     }
@@ -83,6 +83,43 @@ function showLogin() {
 function showRegister() {
     document.getElementById('registerModal').classList.add('active');
     document.getElementById('registerError').classList.remove('active');
+}
+
+// Mostrar modal de recuperação de senha
+function switchToForgotPassword(event) {
+    event?.preventDefault();
+    closeModal('loginModal');
+    const modal = document.getElementById('forgotPasswordModal');
+    modal.classList.add('active');
+    document.getElementById('forgotPasswordError').classList.remove('active');
+    document.getElementById('forgotPasswordSuccess').classList.remove('active');
+    document.getElementById('forgotPasswordForm').reset();
+    document.getElementById('forgotPasswordEmail').focus();
+}
+
+function switchToLoginFromForgot(event) {
+    event?.preventDefault();
+    closeModal('forgotPasswordModal');
+    showLogin();
+}
+
+function handleForgotPassword(event) {
+    event.preventDefault();
+    const errorDiv = document.getElementById('forgotPasswordError');
+    const successDiv = document.getElementById('forgotPasswordSuccess');
+    const email = event.target.email.value.trim();
+
+    errorDiv.classList.remove('active');
+    successDiv.classList.remove('active');
+
+    if (!email) {
+        errorDiv.textContent = 'Informe um e-mail válido.';
+        errorDiv.classList.add('active');
+        return;
+    }
+
+    successDiv.textContent = 'Solicitação recebida. A redefinição por e-mail será disponibilizada quando o servidor de recuperação estiver conectado.';
+    successDiv.classList.add('active');
 }
 
 // Fechar modal
