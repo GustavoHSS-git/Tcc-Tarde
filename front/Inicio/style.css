@@ -196,6 +196,166 @@
     }
 }
 
+/* Tema claro */
+:root[data-theme="light"] {
+    --primary-color: #201C33;
+    --secondary-color: #3A2765;
+    --bg-dark: #3A2765;
+    --bg-card: #FFFFFF;
+    --bg-hover: #ECEAF6;
+    --bg-page-start: #dddddd;
+    --bg-page-end: #dddce2;
+    --header-bg: #FFFFFF;
+    --modal-bg: #FFFFFF;
+    --toast-bg: rgba(255, 255, 255, 0.97);
+    --text-primary: #3A2765 ;
+    --text-secondary: #615d78;
+    --border-color: #DEDCEC;
+    --focus-ring: rgba(58, 39, 101, 0.18);
+    --success: #0f9d63;
+    --warning: #b8860b;
+    --danger: #c62f37;
+}
+
+/* Tema GameCube */
+:root[data-theme="gamecube"] {
+    --primary-color: #FFFFFF;
+    --secondary-color: #6633CC;
+    --bg-dark: #3D1A6D;
+    --bg-card: #552A99;
+    --bg-hover: #6633CC;
+    --bg-page-start: #CBCACF;
+    --bg-page-end: #2A0F4D;
+    --header-bg: #552A99;
+    --modal-bg: #552A99;
+    --toast-bg: rgba(61, 26, 109, 0.95);
+    --text-primary: #FFFFFF;
+    --text-secondary: #E6CCFF;
+    --border-color: #6633CC;
+    --focus-ring: rgba(102, 51, 204, 0.35);
+    --success: #10B981;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+}
+
+/* Tema NES */
+:root[data-theme="nes"] {
+    --primary-color: #C0C0C0;
+    --secondary-color: #990000;
+    --bg-dark: #870000;
+    --bg-card: #DFDFDF;
+    --bg-hover: #E8E8E8;
+    --bg-page-start: #C0C0C0;
+    --bg-page-end: #B0B0B0;
+    --header-bg: #DFDFDF;
+    --modal-bg: #DFDFDF;
+    --toast-bg: rgba(192, 192, 192, 0.95);
+    --text-primary: #000000;
+    --text-secondary: #000000;
+    --border-color: #990000;
+    --focus-ring: rgba(153, 0, 0, 0.35);
+    --success: #0f9d63;
+    --warning: #b8860b;
+    --danger: #990000;
+}
+
+/* Tema SNES */
+:root[data-theme="snes"] {
+    --primary-color: #FFFFFF;
+    --secondary-color: #5533AA;
+    --bg-dark: #330066;
+    --bg-card: #4D1A99;
+    --bg-hover: #5533AA;
+    --bg-page-start: #330066;
+    --bg-page-end: #220033;
+    --header-bg: #4D1A99;
+    --modal-bg: #4D1A99;
+    --toast-bg: rgba(51, 0, 102, 0.95);
+    --text-primary: #FFFFFF;
+    --text-secondary: #E6CCFF;
+    --border-color: #5533AA;
+    --focus-ring: rgba(85, 51, 170, 0.35);
+    --success: #10B981;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+}
+
+
+
+/* Tema Xbox */
+:root[data-theme="xbox"] {
+    --primary-color: #00DD00;
+    --secondary-color: #00AA00;
+    --bg-dark: #001A00;
+    --bg-card: #003300;
+    --bg-hover: #004D00;
+    --bg-page-start: #001A00;
+    --bg-page-end: #000F00;
+    --header-bg: #003300;
+    --modal-bg: #003300;
+    --toast-bg: rgba(0, 26, 0, 0.95);
+    --text-primary: #00DD00;
+    --text-secondary: #00AA00;
+    --border-color: #00AA00;
+    --focus-ring: rgba(0, 170, 0, 0.35);
+    --success: #06B6D4;
+    --warning: #FBBF24;
+    --danger: #FB7185;
+}
+
+/* Tema Game Boy */
+:root[data-theme="gameboy"] {
+    --primary-color: #FF    D700;
+    --secondary-color: #9933CC;
+    --bg-dark: #2D1B69;
+    --bg-card: #3D2678;
+    --bg-hover: #4A3283;
+    --bg-page-start: #2D1B69;
+    --bg-page-end: #1F0F47;
+    --header-bg: #3D2678;
+    --modal-bg: #3D2678;
+    --toast-bg: rgba(45, 27, 105, 0.95);
+    --text-primary: #FFD700;
+    --text-secondary: #E6CCFF;
+    --border-color: #9933CC;
+    --focus-ring: rgba(153, 51, 204, 0.35);
+    --success: #06B6D4;
+    --warning: #FBBF24;
+    --danger: #FB7185;
+}
+
+/* Tema CasaXeira */
+:root[data-theme="casaxeira"] {
+   --primary-color: #E8F8EE;
+    --secondary-color: #96BF16;
+    --bg-dark: #153d23;
+    --bg-card: #2f6d3e;
+    --bg-hover: #3f7f46;
+    --bg-page-start: #b7d334;
+    --bg-page-end: #153d23;
+    --header-bg: #2f6d3e;
+    --modal-bg: #2f6d3e;
+    --toast-bg: rgba(21, 61, 35, 0.95);
+    --text-primary: #f4fbf6;
+    --text-secondary: #d7efd8;
+    --border-color: #96bf16;
+    --focus-ring: rgba(150, 191, 22, 0.25);
+    --success: #06B6D4;
+    --warning: #FBBF24;
+    --danger: #FB7185;
+    --palette-1: #b7d334;
+    --palette-2: #96bf16;
+    --palette-3: #2f6d3e;
+    --palette-4: #153d23;
+}
+
+/* Transição suave entre temas, respeitando preferência de menos animação */
+@media (prefers-reduced-motion: no-preference) {
+    *, *::before, *::after {
+        transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
