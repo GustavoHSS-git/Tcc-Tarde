@@ -23,9 +23,10 @@ function updateUIForLoggedInUser() {
     
     if (currentUser.avatar) {
         const avatarElement = document.getElementById('headerAvatar');
+        avatarElement.dataset.userAvatar = 'true';
         
         // Verifica se é link do Cloudinary (http) ou arquivo local
-        const avatarSrc = currentUser.avatar.startsWith('http') 
+        const avatarSrc = currentUser.avatar.startsWith('data:') || currentUser.avatar.startsWith('http')
             ? currentUser.avatar 
             : `../../uploads/icons/${currentUser.avatar}`;
             
@@ -50,6 +51,7 @@ function updateUIForLoggedOutUser() {
     document.getElementById('authButtons').style.display = 'flex';
     document.getElementById('userMenu').style.display = 'none';
     document.getElementById('profileLink').style.display = 'none';
+    document.getElementById('headerAvatar').removeAttribute('data-user-avatar');
     
     // Atualizar banner se função existir
     if (typeof updateHeroBanner === 'function') {

@@ -58,10 +58,15 @@ function updateHeroBanner() {
 function loadSearchPage() {
     showPage('searchPage');
     document.querySelector('.nav-link[href="#search"]').classList.add('active');
+
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput && typeof searchSeries === 'function') {
+        searchSeries({ target: searchInput });
+    }
     
     // Focar no input de busca
     setTimeout(() => {
-        document.getElementById('searchInput').focus();
+        searchInput?.focus();
     }, 100);
 }
 
