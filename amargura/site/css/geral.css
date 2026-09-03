@@ -1,0 +1,602 @@
+body {
+  margin: 0px;
+  background-color: #9e9e9e;
+}
+table {
+  background-color: #f0f0f0;
+  margin: auto;
+  width: 98%;
+  border-collapse: collapse;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+}
+
+th,
+td {
+  padding: 5px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+h1 {
+  text-align: center;
+}
+.desc-just {
+  text-align: justify;
+}
+/* Estilo para mensagens de sucesso e erro */
+.sucesso {
+  color: green;
+}
+
+.erro {
+  color: red;
+}
+label {
+  display: block;
+  margin-top: 10px;
+}
+.img-preview {
+  max-width: 100px;
+  height: auto;
+}
+.preview-img {
+  max-width: 150px;
+  height: auto;
+  margin-top: 10px;
+}
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+.container > form {
+  background-color: #f0f0f0;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+.mini-bandeira {
+  height: 30px;
+  width: auto;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+#cidade-foto {
+  max-width: 100px;
+  height: auto;
+}
+#cidade-mapa {
+  max-width: 200px;
+  height: auto;
+  margin-top: 10px;
+}
+#cidade-mapa-lista {
+  background-image: url("");
+  width: 200px;
+  height: 200px;
+  height: auto;
+  margin-top: 0px;
+}
+/* Estilo para o contêiner das imagens */
+.imagens-superior-direita {
+  height: 200px;
+  top: 60px;
+  right: 20px;
+  float: right;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.imagens-superior-esquerda {
+  height: 200px;
+  top: 60px;
+  left: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+/* Estilo para as imagens */
+.imagens-superior-direita .paisagem-cidade {
+  max-width: 600px !important;
+  width: 350px !important;
+  height: auto !important;
+  object-fit: contain;
+  margin-left: 10px;
+}
+.imagens-superior-direita img {
+  max-width: 200px !important;
+  width: 200px !important;
+  height: auto !important;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.imagens-superior-esquerda img {
+  max-width: 200px !important;
+  width: 200px !important;
+  height: auto !important;
+  object-fit: cover;
+  border-radius: 5px;
+}
+sup {
+  font-size: x-small;
+}
+.editable {
+  display: inline-block;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  color: #333;
+  cursor: pointer;
+  min-height: 12px;
+  font-size: small;
+}
+.editable:hover {
+  background-color: #e6e6e6;
+}
+.input-field {
+  display: none;
+}
+#save-button {
+  display: none;
+}
+.abralink {
+  display: inline-block;
+  text-decoration: none;
+  min-width: 100%;
+  color: #333;
+  cursor: pointer;
+}
+.abralink:hover {
+  background-color: #e6e6e6;
+}
+
+.abrirdetalhes {
+  margin: auto;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background-color: #494949;
+  color: #fff;
+  padding: 5px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 96%;
+}
+.abrirdetalhes:hover {
+  color: #494949;
+  background-color: #fff;
+}
+.td-central {
+  display: table-cell;
+}
+
+h2 {
+  text-align: center;
+}
+form > label {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+}
+form > select,
+form > textarea,
+form > button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+form > button {
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  transition: 0.3s;
+}
+form > button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.detalhes {
+  width: 80%;
+  margin: 20px auto;
+  background-color: #fafafa;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+.detalhes > h1 {
+  text-align: center;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+ul li {
+  background: #f4f4f4;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+.detalhes > a {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  color: blue;
+}
+.detalhes > a:hover {
+  text-decoration: underline;
+}
+
+.topoform {
+  background-color: #ccc;
+}
+
+.selecao {
+  font-size: 18px;
+}
+.selecao > select {
+  border: solid 2px black;
+  font-weight: normal;
+  font-size: 18px;
+}
+.tags {
+  width: 220px;
+  float: left;
+  padding: 5px;
+  border-radius: 4px;
+  margin: 2px;
+  border: 1px solid black;
+}
+article {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  margin-top: -15px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid black;
+}
+.edicao {
+  border: none !important;
+}
+
+.img-limpa {
+  float: right;
+  margin-left: 10px;
+  max-width: 200px;
+  height: auto;
+}
+.img-direita {
+  float: right;
+  margin-left: 20px;
+  max-width: 150px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+.img-direita:hover {
+  background-color: #e6e6e6;
+}
+.mostra-detalhe {
+  margin-bottom: 10px;
+}
+/* Ajustes para a exibição da imagem do item à esquerda */
+
+.nome-item {
+  border: 0px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+.item-nome {
+  font-size: 18px;
+}
+.item-row {
+  border: 1px solid #000;
+}
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 90%;
+  overflow-y: auto;
+  border-radius: 10px;
+  position: relative;
+}
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #333;
+}
+.abrir-modal {
+  border: none;
+  cursor: pointer;
+}
+
+.abrir-modal img {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.item-loot {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+/* edit de item */
+.input-edit,
+.textarea-edit {
+  max-width: 340px;
+  width: 100%;
+  padding: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+.textarea-edit {
+  height: 60px;
+  resize: vertical;
+}
+
+/* Card dos reinos */
+.card-reino-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.card-reino {
+  position: relative;
+  width: 350px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  overflow: hidden;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.card-reino:hover {
+  cursor: pointer;
+  transform: scale(1.03);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-reino img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-reino-nome {
+  font-weight: bold;
+  font-size: 18px;
+  padding: 10px;
+  color: #333;
+}
+
+.card-reino-mapa {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.9);
+  color: white;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  text-align: center;
+}
+
+.card-reino-mapa img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.card-reino:hover .card-reino-mapa {
+  display: flex;
+}
+/* Conteúdo do modal da imagem */
+.modal-content-foto {
+  background: #fff;
+  padding: 20px;
+  width: 90%;
+  max-width: 1500px;
+  max-height: 90%;
+  overflow-y: auto;
+  border-radius: 10px;
+  position: relative;
+}
+.modal-content-foto.imagem-grande {
+  position: relative;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Imagem ampliada */
+#imagemExpandida {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+/* Cards de itens */
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.item-card {
+  position: relative;
+  width: 256px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  overflow: hidden;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.item-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.item-name {
+  font-weight: bold;
+  font-size: 18px;
+  padding: 10px 5px 0;
+  color: #333;
+  text-decoration: none;
+}
+
+.item-card img {
+  width: 256px;
+  height: 256px;
+  object-fit: contain;
+  background: #f8f8f8;
+  cursor: pointer;
+}
+
+.item-price {
+  font-size: 15px;
+  color: #666;
+  padding: 8px;
+}
+
+.item-tooltip {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 8px;
+  font-size: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.item-card:hover .item-tooltip {
+  display: block;
+}
+
+/* Cards de itens no modal*/
+.itemd-card {
+  position: relative;
+  width: 128px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  overflow: hidden;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.itemd-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.itemd-card img {
+  width: 128px;
+  height: 128px;
+  object-fit: contain;
+  background: #f8f8f8;
+}
+
+.itemd-card:hover .item-tooltip {
+  display: block;
+}
+.itemd-card a img {
+  cursor: pointer;
+}
+/* Inimigos */
+.autocomplete-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  background: white;
+  position: absolute;
+  width: 300px;
+  z-index: 1000;
+}
+.autocomplete-list li {
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.autocomplete-list li:hover {
+  background-color: #f0f0f0;
+}
+.autocomplete-list img {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  border-radius: 50%;
+  object-fit: cover;
+}
