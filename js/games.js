@@ -1,6 +1,6 @@
-﻿// Funções para carregamento de jogos
+// Funções para carregamento de jogos
 const searchableGames = new Map();
-const fallbackGames = [
+/*const fallbackGames = [
     { id: 'elden-ring', title: 'Elden Ring', img: '../../uploads/jogos/Elden Ring.jfif', desc: 'RPG de ação.' },
     { id: 'the-last-of-us', title: 'The Last of Us', img: '../../uploads/jogos/tlou.jfif', desc: 'Ação e sobrevivência.' },
     { id: 'outer-wilds', title: 'Outer Wilds', img: '../../uploads/jogos/outer wids.jfif', desc: 'Exploração e mistério.' },
@@ -15,8 +15,30 @@ const fallbackGames = [
     { id: 'animal-crossing-new-horizons', title: 'Animal Crossing: New Horizons', img: '../../uploads/jogos/Animal Crossing New Horizons.jfif', desc: 'Simulação e aventura.' },
     { id: 'metroidvania-games', title: 'The 25 Best Metroidvania Nintendo Switch Games', img: '../../uploads/jogos/The 25 Best Metroidvania Nintendo Switch Games.jfif', desc: 'Aventura e exploração.' },
     { id: 'life-is-strange', title: 'Life is Strange', img: '../../uploads/jogos/life is strange.jfif', desc: 'Aventura narrativa.' }
-];
-const gamesById = new Map(fallbackGames.map((game) => [game.id, game]));
+];console.log(fallbackGames);*/
+
+const fallbackGames = [];
+let gamesById = new Map();
+
+async function load() {
+    try {
+        const response = await fetch("../../gamesInfo.php");
+
+        //const dados = await response.json();
+        const dados = await response.json();
+
+        fallbackGames.push(...dados);
+        gamesById = new Map(fallbackGames.map((game) => [game.id, game]));
+
+        console.log(fallbackGames);
+
+    } catch (erro) {
+        console.error("Erro:", erro);
+    }
+}
+
+const gamesLoaded = load();
+
 
 function normalizeGameReference(value) {
     return String(value || '')
@@ -161,6 +183,7 @@ function renderSeriesCards(container, games) {
 }
 
 async function loadNewReleasesSection() {
+    await gamesLoaded; // espera o fetch terminar antes de renderizar
     const container = document.getElementById('newSeries') || document.getElementById('newGames');
     if (container) {
         renderSeriesCards(container, fallbackGames);
@@ -168,28 +191,31 @@ async function loadNewReleasesSection() {
 }
 
 async function loadAnimeSection() {
+    await gamesLoaded; // espera o fetch terminar antes de renderizar
     const container = document.getElementById('animeSeries') || document.getElementById('animeGames');
     if (container) {
         renderSeriesCards(container, getGamesById([
-            'gris', 'outer-wilds', 'lego-batman-2', 'street-fighter-v'
+            '2', '6', '4', '1'
         ]));
     }
 }
 
 async function loadPopularSeries() {
+    await gamesLoaded; // espera o fetch terminar antes de renderizar
     const container = document.getElementById('popularSeries') || document.getElementById('popularGames');
     if (container) {
         renderSeriesCards(container, getGamesById([
-            'elden-ring', 'the-last-of-us', 'street-fighter-6', 'outer-wilds'
+            '1', '4', '2', '5', '3'
         ]));
     }
 }
 
 async function loadTopRatedSeries() {
+    await gamesLoaded; // espera o fetch terminar antes de renderizar
     const container = document.getElementById('topRatedSeries');
     if (container) {
         renderSeriesCards(container, getGamesById([
-            'the-last-of-us', 'elden-ring', 'gris', 'outer-wilds', 'god-of-war'
+            '1', '4', '2', '5', '3'
         ]));
     }
 }
@@ -231,7 +257,8 @@ function getStaticGames() {
     });
 }
 
-function getSearchGames() {
+async function getSearchGames() {
+    await gamesLoaded; // espera o fetch terminar antes de renderizar
     const games = new Map(fallbackGames.map((game) => [game.id, game]));
     searchableGames.forEach((game, id) => games.set(String(id), game));
     getStaticGames().forEach((game) => games.set(game.id, game));
@@ -275,6 +302,7 @@ function heroSearchSeries(event) {
 }
 
 async function loadSeriesDetail(seriesId) {
+    await gamesLoaded; // espera o fetch terminar antes de renderizar
     const container = document.getElementById('seriesDetail');
     if (!container) return;
 
