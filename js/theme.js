@@ -1,27 +1,5 @@
 const THEME_KEY = 'tcc_tarde_theme';
 const AVAILABLE_THEMES = ['original', 'light', 'gamecube', 'nes', 'snes', 'atari', 'xbox', 'gameboy', 'casaxeira'];
-const ICON_THEMES = {
-    original: '../../uploads/icons/icon-icons.png',
-    light: '../../uploads/icons/icon-iconsb.png',
-    nes: '../../uploads/icons/icon-iconsb.png',
-    gamecube: '../../uploads/icons/icon-icons.png',
-    xbox: '../../uploads/icons/icon-icons.png',
-    casaxeira: '../../uploads/icons/icon-icons.png'
-};
-const PALETTE_THEMES = {
-    original: '../../uploads/paletas/gamecube.svg',
-    light: '../../uploads/paletas/padrao.webp',
-    nes: '../../uploads/paletas/nes.svg',
-    gamecube: '../../uploads/paletas/gamecube.svg',
-    xbox: '../../uploads/paletas/xbox.svg',
-    casaxeira: '../../uploads/paletas/paleta2.png'
-};
-const THEME_LOGOS = {
-    gamecube: '../../uploads/logos/gamecube.webp',
-    nes: '../../uploads/logos/nes.webp',
-    xbox: '../../uploads/logos/xbox.webp',
-    casaxeira: '../../uploads/logos/casa.webp',
-    };
 
 // Lê o tema salvo, ou cai para a preferência do sistema operacional
 function getPreferredTheme() {
@@ -35,30 +13,11 @@ function getPreferredTheme() {
 // Aplica o tema no <html>, salva a escolha e atualiza o dropdown
 function applyTheme(theme) {
     if (!AVAILABLE_THEMES.includes(theme)) {
-        theme = 'original';2
+        theme = 'original';
     }
     
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem(THEME_KEY, theme);
-
-    const logo = document.querySelector('.logo-svg');
-    if (logo) {
-        logo.src = THEME_LOGOS[theme] || '../../uploads/logos/base.webp';
-    }
-
-    const palette = document.getElementById('theme-toggle');
-    if (palette) {
-        palette.src = PALETTE_THEMES[theme] || '../../uploads/paletas/padrao.svg';
-    }
-
-    const avatar = document.getElementById('headerAvatar');
-    if (avatar && !avatar.dataset.userAvatar) {
-        avatar.src = ICON_THEMES[theme] || '../../uploads/icons/icon-icons.png';
-    }
-
-    document.querySelectorAll('[data-theme-avatar="true"]').forEach(profileAvatar => {
-        profileAvatar.src = ICON_THEMES[theme] || '../../uploads/icons/icon-icons.png';
-    });
 
     // Atualiza o estado do dropdown
     const options = document.querySelectorAll('.theme-option');

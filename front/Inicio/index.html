@@ -32,7 +32,6 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <img class="logo-svg" src="../../uploads/logos/base.webp" alt="Logo 8-reviews">
                     <h1>8-reviews</h1>
                 </div>
                 <nav class="nav" id="mainNav">
@@ -43,7 +42,7 @@
                 <div class="header-actions">
                     <div class="theme-menu">
                                 <button class="theme-toggle" id="themeToggle" onclick="toggleThemeMenu()" aria-label="Alternar tema">
-                                    <img src="../../uploads/paletas/pallete.svg" alt="theme-toggle" id="theme-toggle">
+                                    <img src="../../uploads/pallete.svg" alt="theme-toggle" id="theme-toggle">
                                 </button>
 
                         <div class="theme-dropdown" id="themeDropdown">
@@ -81,7 +80,7 @@
                     </div>
                     <div class="user-menu" id="userMenu" style="display: none;">
                     <div class="user-avatar" onclick="toggleUserDropdown()">
-                        <img src="../../uploads/icons/icon-icons.png" alt="Avatar" id="headerAvatar">
+                        <img src="../../uploads/icon-icons.png" alt="Avatar" id="headerAvatar">
                         <span id="headerUsername"></span>
                     </div>
                     <div class="user-dropdown" id="userDropdown">
@@ -109,31 +108,31 @@
   <h2 class="line-title">Trending Games</h2>
   <div class="series-grid carousel-grid" id="trendingGames">
     <div class="series-card" data-id="dota-2" role="button" tabindex="0">
-    <img src="../../uploads/jogos/WhatsApp Image 2026-08-14 at 15.48.57.jpeg" alt="Dota 2" class="series-card-poster">
+    <img src="../../uploads/WhatsApp Image 2026-08-14 at 15.48.57.jpeg" alt="Dota 2" class="series-card-poster">
       <div class="series-card-content">
-        <div class="series-card-title">CasaXeira</div>
-        <div class="series-card-info">Informativo plataforma</div>
+        <div class="series-card-title">Dota 2</div>
+        <div class="series-card-info">Multiplayer Online Battle Arena</div>
       </div>
     </div>
     
     <div class="series-card" data-id="pubg" role="button" tabindex="0">
-      <img src="../../uploads/jogos/Elden Ring.jfif" alt="Elden Ring" class="series-card-poster">
+      <img src="https://www.yudiz.com/codepen/expandable-animated-card-slider/pubg.jpg" alt="PUBG" class="series-card-poster">
       <div class="series-card-content">
-        <div class="series-card-title">Elden Ring</div>
-        <div class="series-card-info">Soulslike</div>
+        <div class="series-card-title">PUBG</div>
+        <div class="series-card-info">Battle Royale</div>
       </div>
     </div>
     
     <div class="series-card" data-id="counter-strike-2" role="button" tabindex="0">
-    <img src="../../uploads/jogos/casa.jpeg" alt="CasaXeira" class="series-card-poster">
+    <img src="../../uploads/casa.jpeg" alt="Counter-Strike 2" class="series-card-poster">
       <div class="series-card-content">
-        <div class="series-card-title">CasaXeira</div>        
+        <div class="series-card-title">Casaxeira</div>        
         <div class="series-card-info">Plataforma</div>
       </div>
     </div>
     
     <div class="series-card" data-id="Lego Batman 23+" role="button" tabindex="0">
-    <img src="../../uploads/jogos/Lego Batman 2.jfif" alt="Lego Batman 2" class="series-card-poster">
+    <img src="../../uploads/Lego Batman 2.jfif" alt="Lego Batman 2" class="series-card-poster">
       <div class="series-card-content">
         <div class="series-card-title">Lego Batman 2</div>
         <div class="series-card-info">Aventura</div>
@@ -141,16 +140,16 @@
     </div>
     
     <div class="series-card" data-id="valorant" role="button" tabindex="0">
-    <img src="../../uploads/jogos/gris.jfif" alt="gris" class="series-card-poster">
+    <img src="../../uploads/1393414.jpg" alt="Valorant" class="series-card-poster">
       <div class="series-card-content">
-        <div class="series-card-title">Gris</div>
-        <div class="series-card-info">Platformer</div>
+        <div class="series-card-title">Valorant</div>
+        <div class="series-card-info">Competitive Shooter</div>
       </div>
     </div>
     
 
   <div class="series-card" data-id="fortnite" role="button" tabindex="0">
-    <img src="../../uploads/jogos/STREET FIGHTER 6.jfif" alt="Fortnite" class="series-card-poster">
+    <img src="../../uploads/STREET FIGHTER 6.jfif" alt="Fortnite" class="series-card-poster">
       <div class="series-card-content">
         <div class="series-card-title">Street Fighter 6</div>
         <div class="series-card-info">Luta</div>
@@ -273,45 +272,6 @@
                 <p class="modal-footer-text">
                     Já tem uma conta? <a href="#" onclick="switchToLogin()">Entre aqui</a>
                 </p>    
-            </form>
-        </div>
-    </div>
-
-    <div class="modal" id="ratingModal">
-        <div class="modal-content rating-modal-content">
-            <span class="close" onclick="closeModal('ratingModal')">&times;</span>
-            <h2>Avaliar jogo</h2>
-            <p class="rating-modal-game" id="ratingModalGameName">Jogo</p>
-            <form id="ratingModalForm" onsubmit="handleGameRatingSubmit(event)">
-                <div class="form-group">
-                    <label>Sua nota</label>
-                    <div class="rating-stars" id="ratingStars" aria-label="Avaliação em estrelas">
-                        <button type="button" class="rating-star" data-value="1" aria-label="1 estrela">★</button>
-                        <button type="button" class="rating-star" data-value="2" aria-label="2 estrelas">★</button>
-                        <button type="button" class="rating-star" data-value="3" aria-label="3 estrelas">★</button>
-                        <button type="button" class="rating-star" data-value="4" aria-label="4 estrelas">★</button>
-                        <button type="button" class="rating-star" data-value="5" aria-label="5 estrelas">★</button>
-                    </div>
-                    <input type="hidden" id="ratingValueInput" name="rating" value="" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="statusGameSelect">Status</label>
-                    <select id="statusGameSelect" name="status" required>
-                        <option value="playing">Jogando</option>
-                        <option value="completed">Completado</option>
-                        <option value="plan_to_play">Quero jogar</option>
-                        <option value="dropped">Abandonei</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="ratingComment">Comentário</label>
-                    <textarea id="ratingComment" name="comment" rows="4" maxlength="500"
-                              placeholder="Escreva um comentário sobre o jogo..."></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-block">Salvar avaliação</button>
             </form>
         </div>
     </div>

@@ -1,4 +1,3 @@
-    const visibleRatings = ratings.slice(0, 6);
 // Gerenciamento de perfil do usuário - Versão Final Corrigida
 
 // Navegar para o perfil
@@ -28,20 +27,16 @@ async function loadUserProfile(userId) {
         const isOwnProfile = currentUser && currentUser.id === parseInt(userId);
         
         // --- LÓGICA CLOUDINARY CORRIGIDA ---
-        const hasCustomAvatar = Boolean(user.avatar);
-        const currentTheme = document.documentElement.getAttribute('data-theme') || 'original';
-        const avatarUrl = hasCustomAvatar
-            ? (user.avatar.startsWith('data:') || user.avatar.startsWith('http')
-                ? user.avatar
-                : `../../uploads/icons/${user.avatar}`)
-            : (ICON_THEMES?.[currentTheme] || '../../uploads/icons/icon-icons.png');
+        const avatarUrl = (user.avatar && user.avatar.startsWith('http')) 
+            ? user.avatar 
+            : `../../uploads/${user.avatar || 'icon-icons.png'}`;
         
         let avatarSection = '';
         if (isOwnProfile) {
             avatarSection = `
                 <div style="position: absolute; bottom: 0; right: 0;">
-                    <label for="avatarUpload" class="btn btn-primary" style="cursor: pointer; font-size: 0.9rem; padding: 0.55rem; border-radius: 50%;">
-                        <img src="../../uploads/icons/cam.svg" alt="Upload" style="width: 1.5rem; height: 1.5rem; vertical-align: middle;">
+                    <label for="avatarUpload" class="btn btn-primary" style="cursor: pointer; font-size: 0.9rem; padding: 0.4rem 0.8rem; border-radius: 50%;">
+                        📷
                     </label>
                     <input type="file" id="avatarUpload" accept="image/*" style="display: none;" onchange="handleAvatarUpload(event)">
                 </div>
@@ -61,10 +56,10 @@ async function loadUserProfile(userId) {
         container.innerHTML = `
             <div class="profile-header" style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
                 <div class="profile-avatar-container" style="position: relative; width: 150px; height: 150px;">
-                    <img src="${avatarUrl}" ${hasCustomAvatar ? '' : 'data-theme-avatar="true"'}
+                    <img src="${avatarUrl}" 
                          alt="${user.username}" class="profile-avatar"
                          style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 3px solid var(--primary-color);"
-                         onerror="this.src='../../uploads/icons/icon-icons.png'">
+                         onerror="this.src='../../uploads/icon-icons.png'">
                     ${avatarSection}
                 </div>
                 <div class="profile-info" style="flex: 1; min-width: 300px;">
@@ -87,7 +82,7 @@ async function loadUserProfile(userId) {
                 </div>
             </div>
             <div style="margin-top: 3rem;">
-                <h3 style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Jogos Avaliados</h3>
+                <h3 style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Séries Avaliadas</h3>
                 <div class="series-grid" id="userRatings">
                     <div class="loading">Carregando avaliações...</div>
                 </div>
@@ -108,83 +103,50 @@ async function loadUserRatingsList(userId) {
     if (!ratingsContainer) return;
 
     try {
+        // CORREÇÃO: API.getUserRatings já retorna o array direto no PostgreSQL
         const ratings = await API.getUserRatings(userId);
-
+        
         ratingsContainer.innerHTML = '';
-
+        
         if (!ratings || ratings.length === 0) {
             ratingsContainer.innerHTML = '<p class="placeholder-text" style="grid-column: 1/-1;">Nenhuma série avaliada ainda</p>';
             return;
         }
-
-        const statusLabels = {
-            playing: 'Jogando',
-            completed: 'Completou',
-            plan_to_play: 'Planeja jogar',
-            plan_to_watch: 'Planeja assistir',
-            watching: 'Assistindo',
-            dropped: 'Dropou'
-        };
-
-        const statusColors = {
-            playing: '#00d4ff',
-            completed: '#00ff88',
-            plan_to_play: '#ffd600',
-            plan_to_watch: '#ffd600',
-            watching: '#00d4ff',
-            dropped: '#ff4444'
-        };
-
-        const visibleRatings = ratings.slice(0, 6);
-        for (const rating of visibleRatings) {
-            const title = rating.title || rating.name || `Jogo ${rating.igdb_id ?? rating.game_id ?? rating.id}`;
-            let poster = rating.image || rating.img || rating.poster || rating.cover || '../../uploads/paletas/padrao.webp';
-            
-            // Se a imagem começa com //, garantir que seja https ou usar caminho relativo
-            if (poster && poster.startsWith('//')) {
-                poster = 'https:' + poster;
-            }
-            
-            // Se for data URL (base64), usar fallback pois são muito grandes
-            if (poster && poster.startsWith('data:')) {
-                poster = '../../uploads/paletas/padrao.webp';
-            }
-            
-            const routeId = rating.game_id || rating.igdb_id || rating.tmdb_id || normalizeGameReference(title);
-            const card = document.createElement('div');
-            card.className = 'series-card';
-            card.setAttribute('role', 'button');
-            card.setAttribute('tabindex', '0');
-            const openGamePage = () => {
-                window.location.hash = `#series/${encodeURIComponent(routeId)}`;
-            };
-            card.onclick = openGamePage;
-            card.onkeydown = (event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    openGamePage();
+        
+        for (const rating of ratings) {
+            try {
+                // `rating.series_id` é o id interno do DB; usar `rating.tmdb_id` para chamar a API TMDB
+                const series = await TMDB_API.getSeriesDetails(rating.tmdb_id);
+                if (series) {
+                    const card = document.createElement('div');
+                    card.className = 'series-card';
+                    card.onclick = () => showSeriesDetail(series.id);
+                    
+                    const posterUrl = TMDB_API.getImageUrl(series.poster_path);
+                    const statusLabels = { watching: 'Assistindo', completed: 'Completou', plan_to_watch: 'Planeja', dropped: 'Dropou' };
+                    const statusColors = { watching: '#00d4ff', completed: '#00ff88', plan_to_watch: '#ffd600', dropped: '#ff4444' };
+                    
+                    card.innerHTML = `
+                        <div style="position: relative;">
+                            <img src="${posterUrl}" alt="${series.name}" class="series-card-poster"
+                                 onerror="this.src='../../uploads/default-poster.png'">
+                            <div style="position: absolute; top: 0.5rem; right: 0.5rem; 
+                                 background: ${statusColors[rating.status] || '#666'}; 
+                                 color: white; padding: 0.2rem 0.5rem; border-radius: 4px; 
+                                 font-size: 0.7rem; font-weight: 600; text-transform: uppercase;">
+                                 ${statusLabels[rating.status] || rating.status}
+                            </div>
+                        </div>
+                        <div class="series-card-content">
+                            <div class="series-card-title" title="${series.name}">${series.name}</div>
+                            <div class="series-card-info">
+                                <span class="series-rating">⭐ ${Number(rating.rating).toFixed(1)}</span>
+                            </div>
+                        </div>
+                    `;
+                    ratingsContainer.appendChild(card);
                 }
-            };
-
-            card.innerHTML = `
-                <img src="${poster}" alt="${title}" class="series-card-poster"
-                     onerror="this.src='../../uploads/paletas/padrao.webp'">
-                <div style="position: absolute; top: 0.5rem; right: 0.5rem; 
-                     background: ${statusColors[rating.status] || '#666'}; 
-                     color: white; padding: 0.2rem 0.5rem; border-radius: 4px; 
-                     font-size: 0.7rem; font-weight: 600; text-transform: uppercase; z-index: 3;">
-                     ${statusLabels[rating.status] || rating.status || 'Avaliado'}
-                </div>
-                <div class="series-card-content">
-                    <div class="series-card-title" title="${title}">${title}</div>
-                    <div class="series-card-info">
-                        <span class="series-rating"><span aria-hidden="true">★</span> ${Number(rating.rating || 0).toFixed(1)}</span>
-                    </div>
-                    ${rating.comment ? `<div class="series-card-comment">${rating.comment}</div>` : ''}
-                </div>
-            `;
-
-            ratingsContainer.appendChild(card);
+            } catch (e) { console.error("Erro ao carregar série:", e); }
         }
     } catch (error) {
         console.error("Erro ao carregar notas:", error);

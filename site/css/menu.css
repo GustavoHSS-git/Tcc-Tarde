@@ -1,0 +1,86 @@
+ /* Estilos básicos para o menu */
+ body {
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo do menu principal */
+.navbar {
+    background-color: #0b0d0f;
+    border-bottom: 1px solid #343a40;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+/* Estilos para os itens principais do menu */
+.navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Esconder os dropdowns por padrão */
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+/* Estilo do botão dropdown */
+.dropdown .dropbtn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Estilo do conteúdo do dropdown */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1a1d21;
+    min-width: 160px;
+    border: 1px solid #343a40;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/* Estilo das opções dentro do dropdown */
+.dropdown-content a {
+    float: none;
+    color: #e2e5e8;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+/* Alterar cor de fundo ao passar o mouse */
+.dropdown-content a:hover {
+    background-color: #30363d;
+}
+
+/* Mostrar o conteúdo do dropdown ao passar o mouse */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Alterar a cor do botão do dropdown ao passar o mouse */
+.dropdown:hover .dropbtn {
+    background-color: #252a30;
+}
+
+/* Responsividade básica */
+@media (max-width: 768px) {
+    .navbar a, .dropdown .dropbtn {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+}

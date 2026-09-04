@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8reviews</title>
+    <script>
+        (function () {
+            var saved = localStorage.getItem('tcc_tarde_theme');
+            var validThemes = ['original', 'light', 'gamecube', 'nes', 'snes', 'atari', 'xbox', 'gameboy', 'casaxeira'];
+            var theme = (validThemes.includes(saved))
+                ? saved
+                : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'original');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="loading-screen">
+        <div class="claquete">
+            <div class="topo"></div>
+            <div class="base"></div>
+        </div>
+    </div>
+
+    <!-- Container de Notificações Toast -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img class="logo-svg" src="../../uploads/logos/base.webp" alt="Logo 8-reviews">
+                    <h1>8-reviews</h1>
+                </div>
+                <nav class="nav" id="mainNav">
+                    <a href="#home" class="nav-link active">Início</a>
+                    <a href="#search" class="nav-link">Buscar</a>
+                    <a href="#profile" class="nav-link" id="profileLink" style="display: none;">Perfil</a>
+                </nav>
+                <div class="header-actions">
+                    <div class="theme-menu">
+                                <button class="theme-toggle" id="themeToggle" onclick="toggleThemeMenu()" aria-label="Alternar tema">
+                                    <img src="../../uploads/paletas/pallete.svg" alt="theme-toggle" id="theme-toggle">
+                                </button>
+
+                        <div class="theme-dropdown" id="themeDropdown">
+                            <button class="theme-option" data-theme="original" onclick="setTheme('original')">
+                                <span class="theme-dot"></span>
+                                <span>Original</span>
+                            </button>
+                            <button class="theme-option" data-theme="light" onclick="setTheme('light')">
+                                <span class="theme-dot"></span>
+                                <span>Claro</span>
+                            </button>
+                            <button class="theme-option" data-theme="gamecube" onclick="setTheme('gamecube')">
+                                <span class="theme-dot"></span>
+                                <span>GameCube</span>
+                            </button>
+                            <button class="theme-option" data-theme="nes" onclick="setTheme('nes')">
+                                <span class="theme-dot"></span>
+                                <span>NES</span>
+                            </button>
+                        
+                            <button class="theme-option" data-theme="xbox" onclick="setTheme('xbox')">
+                                <span class="theme-dot"></span>
+                                <span>Xbox</span>
+                            </button>
+
+                            <button class="theme-option" data-theme="casaxeira" onclick="setTheme('casaxeira')">
+                                <span class="theme-dot"></span>
+                                <span>CasaXeira</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="auth-buttons" id="authButtons">
+                        <button class="btn btn-outline" onclick="showLogin()">Entrar</button>
+                        <button class="btn btn-primary" onclick="showRegister()">Cadastrar</button>
+                    </div>
+                    <div class="user-menu" id="userMenu" style="display: none;">
+                    <div class="user-avatar" onclick="toggleUserDropdown()">
+                        <img src="../../uploads/icons/icon-icons.png" alt="Avatar" id="headerAvatar">
+                        <span id="headerUsername"></span>
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="#profile" onclick="navigateToProfile()">Meu Perfil</a>
+                        <a href="#" onclick="logout()">Sair</a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content" id="mainContent">
+        <section id="homePage" class="page active">
+            <div class="container">
+                <div class="hero">
+                    <h2>Descubra, avalie e compartilhe suas experiências favoritas</h2>
+                    <p>Junte-se à comunidade de amantes de jogos</p>
+                    <div class="search-bar-hero">
+                        <input type="text" id="heroSearch" placeholder=" Buscar jogos..." onkeyup="heroSearchSeries(event)">
+                    </div>
+                </div>
+                
+                <section class="series-section">
+  <h2 class="line-title">Trending Games</h2>
+  <div class="series-grid carousel-grid" id="trendingGames">
+    <div class="series-card" data-id="dota-2" role="button" tabindex="0">
+    <img src="../../uploads/jogos/WhatsApp Image 2026-08-14 at 15.48.57.jpeg" alt="Dota 2" class="series-card-poster">
+      <div class="series-card-content">
+        <div class="series-card-title">CasaXeira</div>
+        <div class="series-card-info">Informativo plataforma</div>
+      </div>
+    </div>
+    
+    <div class="series-card" data-id="pubg" role="button" tabindex="0">
+      <img src="../../uploads/jogos/Elden Ring.jfif" alt="Elden Ring" class="series-card-poster">
+      <div class="series-card-content">
+        <div class="series-card-title">Elden Ring</div>
+        <div class="series-card-info">Soulslike</div>
+      </div>
+    </div>
+    
+    <div class="series-card" data-id="counter-strike-2" role="button" tabindex="0">
+    <img src="../../uploads/jogos/casa.jpeg" alt="CasaXeira" class="series-card-poster">
+      <div class="series-card-content">
+        <div class="series-card-title">CasaXeira</div>        
+        <div class="series-card-info">Plataforma</div>
+      </div>
+    </div>
+    
+    <div class="series-card" data-id="Lego Batman 23+" role="button" tabindex="0">
+    <img src="../../uploads/jogos/Lego Batman 2.jfif" alt="Lego Batman 2" class="series-card-poster">
+      <div class="series-card-content">
+        <div class="series-card-title">Lego Batman 2</div>
+        <div class="series-card-info">Aventura</div>
+      </div>
+    </div>
+    
+    <div class="series-card" data-id="valorant" role="button" tabindex="0">
+    <img src="../../uploads/jogos/gris.jfif" alt="gris" class="series-card-poster">
+      <div class="series-card-content">
+        <div class="series-card-title">Gris</div>
+        <div class="series-card-info">Platformer</div>
+      </div>
+    </div>
+    
+
+  <div class="series-card" data-id="fortnite" role="button" tabindex="0">
+    <img src="../../uploads/jogos/STREET FIGHTER 6.jfif" alt="Fortnite" class="series-card-poster">
+      <div class="series-card-content">
+        <div class="series-card-title">Street Fighter 6</div>
+        <div class="series-card-info">Luta</div>
+      </div>
+    </div>
+  </div>
+</section>
+                <section class="series-section">
+                    <h3><i class="fas fa-bolt"></i> Novidades</h3>
+                    <div class="series-grid carousel-grid" id="newSeries">
+                        <div class="loading">Carregando Novidades...</div>
+                    </div>
+                </section>
+
+                <section class="series-section">
+                    <h3>Jogos em alta</h3>
+                    <div class="series-grid carousel-grid" id="popularSeries">
+                        <div class="loading">Carregando Jogos...</div>
+                    </div>
+                </section>
+
+                <section class="series-section">
+                    <h3>Retro</h3>
+                    <div id="animeSeries" class="series-grid carousel-grid">
+                        <div class="loading">Carregando Retros...</div>
+                    </div>
+                </section>
+
+                <section class="series-section">
+                    <h3>Top Avaliados</h3>
+                    <div class="series-grid carousel-grid" id="topRatedSeries">
+                        <div class="loading">Carregando jogos...</div>
+                    </div>
+                </section>
+
+                <section class="activity-section">
+                    <h3>Atividades Recentes</h3>
+                    <div class="activity-feed" id="activityFeed">
+                        <div class="loading">Carregando atividades...</div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- Página de busca -->
+
+        <section id="searchPage" class="page">
+            <div class="container">
+                <div class="search-header">
+                    <h2>Buscar Jogos</h2>
+                    <div class="search-bar">
+                        <input type="text" id="searchInput" placeholder="Digite o nome do jogo" onkeyup="searchSeries(event)">
+                        <button class="btn btn-primary" onclick="performSearch()">Buscar</button>
+                    </div>
+                </div>
+                <div class="search-results" id="searchResults">
+                    <p class="placeholder-text">Digite algo para começar a buscar...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="seriesDetailPage" class="page">
+            <div class="series-detail" id="seriesDetail"></div>
+        </section>
+
+        <section id="profilePage" class="page">
+            <div class="container">
+                <div class="profile-content" id="profileContent">
+                    <div class="loading">Carregando perfil...</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modais de Login e Registro -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Entrar</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" name="password" required>
+                </div>
+                <div class="error-message" id="loginError"></div>
+                <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                <p class="modal-footer-text">
+                    Não tem uma conta? <a href="#" onclick="switchToRegister()">Cadastre-se</a>
+                </p>
+                <p>
+                    <a href="#" class="modal-secondary-link" onclick="switchToForgotPassword(event)">Esqueceu a senha?</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Cadastrar</h2>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>Nome de usuário</label>
+                    <input type="text" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" name="password" required minlength="6">
+                </div>
+                <div class="error-message" id="registerError"></div>
+                <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+                <p class="modal-footer-text">
+                    Já tem uma conta? <a href="#" onclick="switchToLogin()">Entre aqui</a>
+                </p>    
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="ratingModal">
+        <div class="modal-content rating-modal-content">
+            <span class="close" onclick="closeModal('ratingModal')">&times;</span>
+            <h2>Avaliar jogo</h2>
+            <p class="rating-modal-game" id="ratingModalGameName">Jogo</p>
+            <form id="ratingModalForm" onsubmit="handleGameRatingSubmit(event)">
+                <div class="form-group">
+                    <label>Sua nota</label>
+                    <div class="rating-stars" id="ratingStars" aria-label="Avaliação em estrelas">
+                        <button type="button" class="rating-star" data-value="1" aria-label="1 estrela">★</button>
+                        <button type="button" class="rating-star" data-value="2" aria-label="2 estrelas">★</button>
+                        <button type="button" class="rating-star" data-value="3" aria-label="3 estrelas">★</button>
+                        <button type="button" class="rating-star" data-value="4" aria-label="4 estrelas">★</button>
+                        <button type="button" class="rating-star" data-value="5" aria-label="5 estrelas">★</button>
+                    </div>
+                    <input type="hidden" id="ratingValueInput" name="rating" value="" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="statusGameSelect">Status</label>
+                    <select id="statusGameSelect" name="status" required>
+                        <option value="playing">Jogando</option>
+                        <option value="completed">Completado</option>
+                        <option value="plan_to_play">Quero jogar</option>
+                        <option value="dropped">Abandonei</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="ratingComment">Comentário</label>
+                    <textarea id="ratingComment" name="comment" rows="4" maxlength="500"
+                              placeholder="Escreva um comentário sobre o jogo..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Salvar avaliação</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="forgotPasswordModal">
+        <div class="modal-content recovery-modal-content">
+            <button class="close" type="button" onclick="closeModal('forgotPasswordModal')" aria-label="Fechar">&times;</button>
+            <div class="recovery-heading">
+                <div>
+                    <h2>Recuperar senha</h2>
+                    <p>Informe o e-mail usado no cadastro para iniciar a recuperação.</p>
+                </div>
+            </div>
+            <form id="forgotPasswordForm" onsubmit="handleForgotPassword(event)">
+                <div class="form-group">
+                    <label for="forgotPasswordEmail">E-mail</label>
+                    <input id="forgotPasswordEmail" type="email" name="email" autocomplete="email" placeholder="voce@exemplo.com" required>
+                </div>
+                <div class="error-message" id="forgotPasswordError" role="alert"></div>
+                <div class="success-message" id="forgotPasswordSuccess" role="status"></div>
+                <button type="submit" class="btn btn-primary btn-block">Enviar instruções</button>
+                <p class="modal-footer-text">
+                    Lembrou da senha? <a href="#" onclick="switchToLoginFromForgot(event)">Voltar para entrar</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script src="../../js/carrossel.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/app.js"></script>
+    <script src="../../js/games.js"></script>
+    <script src="../../js/profile.js"></script>  
+    <script src="../../js/notifications.js"></script>
+    <script src="../../js/carousel-grid.js"></script>
+    </body>
+</html>

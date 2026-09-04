@@ -23,18 +23,17 @@ function updateUIForLoggedInUser() {
     
     if (currentUser.avatar) {
         const avatarElement = document.getElementById('headerAvatar');
-        avatarElement.dataset.userAvatar = 'true';
         
         // Verifica se é link do Cloudinary (http) ou arquivo local
-        const avatarSrc = currentUser.avatar.startsWith('data:') || currentUser.avatar.startsWith('http')
+        const avatarSrc = currentUser.avatar.startsWith('http') 
             ? currentUser.avatar 
-            : `../../uploads/icons/${currentUser.avatar}`;
+            : `../../uploads/${currentUser.avatar}`;
             
         avatarElement.src = avatarSrc;
 
         // Se a imagem não carregar por algum motivo, põe a padrão
         avatarElement.onerror = function() { 
-              this.src = '../../uploads/icons/icon-icons.png';
+              this.src = '../../uploads/icon-icons.png';
             this.onerror = null;
         };
     }
@@ -51,7 +50,6 @@ function updateUIForLoggedOutUser() {
     document.getElementById('authButtons').style.display = 'flex';
     document.getElementById('userMenu').style.display = 'none';
     document.getElementById('profileLink').style.display = 'none';
-    document.getElementById('headerAvatar').removeAttribute('data-user-avatar');
     
     // Atualizar banner se função existir
     if (typeof updateHeroBanner === 'function') {
